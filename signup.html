@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shadow Archive | 회원가입</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="backdrop"></div>
+  <main class="signup-shell">
+    <section class="card signup-card">
+      <p class="section-tag">Sign Up</p>
+      <h1>Shadow Archive 회원가입</h1>
+      <p class="dashboard-copy">
+        회원가입을 완료하면 사건 글 작성, 댓글/대댓글 작성, 좋아요 기능을 사용할 수 있습니다.
+      </p>
+
+      <form id="signupPageForm" class="post-form">
+        <div class="signup-grid">
+          <label>
+            닉네임 <span class="required-mark">(*)</span>
+            <input name="nickname" type="text" placeholder="게시판에 표시될 이름" minlength="2" required>
+          </label>
+          <label>
+            생년월일
+            <input name="birthdate" type="date">
+          </label>
+          <label>
+            이메일 주소 <span class="required-mark">(*)</span>
+            <input name="email" type="email" placeholder="example@email.com" required>
+          </label>
+          <label>
+            가입 경로 <span class="required-mark">(*)</span>
+            <select name="referral" required>
+              <option value="">선택해 주세요</option>
+              <option value="검색">검색</option>
+              <option value="지인 추천">지인 추천</option>
+              <option value="SNS">SNS</option>
+              <option value="커뮤니티">커뮤니티</option>
+              <option value="기타">기타</option>
+            </select>
+          </label>
+          <label>
+            아이디 <span class="required-mark">(*)</span>
+            <input name="username" type="text" placeholder="영문/숫자 3자 이상" minlength="3" required>
+          </label>
+          <label>
+            비밀번호 <span class="required-mark">(*)</span>
+            <input name="password" type="password" placeholder="비밀번호 4자 이상" minlength="4" required>
+          </label>
+          <label class="full">
+            비밀번호 확인 <span class="required-mark">(*)</span>
+            <input name="passwordConfirm" type="password" placeholder="비밀번호를 한 번 더 입력" minlength="4" required>
+          </label>
+        </div>
+
+        <div class="form-actions">
+          <button class="primary-btn" type="submit">회원가입 완료</button>
+        </div>
+        <p id="signupPageMessage" class="message" aria-live="polite"></p>
+      </form>
+
+      <div class="signup-links">
+        <a class="ghost-btn nav-link" href="index.html">메인으로 돌아가기</a>
+        <a class="ghost-btn nav-link" href="dashboard.html">대시보드 보기</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="signup.js"></script>
+  <script>
+    window.va = window.va || function () {
+      (window.vaq = window.vaq || []).push(arguments);
+    };
+    window.va('beforeSend', function (event) {
+      if (localStorage.getItem('va-disable') === '1') {
+        return null;
+      }
+      return event;
+    });
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

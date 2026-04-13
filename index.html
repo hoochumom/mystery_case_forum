@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>쉐도우 아카이브</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="backdrop"></div>
+  <header class="hero">
+    <nav class="topbar">
+      <div>
+        <p class="eyebrow">Shadow Archive</p>
+        <h1 class="site-title">쉐도우 아카이브</h1>
+        <p class="site-subcopy">미스테리한 사건을 함께 추적하는 토론 아카이브</p>
+      </div>
+      <div class="user-panel">
+        <a id="loginLink" class="topbar-text-link nav-link" href="login.html">로그인</a>
+        <div id="authStatus" class="auth-status hidden">로그인하지 않음</div>
+        <button id="logoutBtn" class="ghost-btn hidden" type="button">로그아웃</button>
+      </div>
+    </nav>
+    <p id="authMessage" class="message hidden" aria-live="polite"></p>
+    <section class="hero-search card">
+      <p class="section-tag">Search Archive</p>
+      <div class="hero-search-row">
+        <input
+          id="heroSearchInput"
+          class="hero-search-input"
+          type="search"
+          placeholder="사건명, 단서, 작성자, 키워드로 검색해 보세요."
+        >
+        <button class="primary-btn hero-search-btn" type="button">검색</button>
+      </div>
+    </section>
+    <div class="hero-grid hero-grid-single">
+      <section class="hero-copy card">
+        <p class="section-tag">Case Board</p>
+        <h2>국내/해외 범죄 사건과 이상현상을 자료 중심으로 분석하는 커뮤니티</h2>
+        <p>
+          실종, 연쇄 범죄, 정체불명의 이상현상, 설명되지 않은 기록까지.
+          사건을 모아 단서를 정리하고 서로 다른 가설을 근거 중심으로 토론하는 아카이브입니다.
+        </p>
+        <div class="beta-banner">
+          <strong>베타 오픈 준비 중</strong>
+          <span>초기 화면에는 운영진 사건 정리와 분석 가이드가 함께 제공됩니다.</span>
+        </div>
+        <div class="hero-points">
+          <span>실제 / 픽션 구분 지원</span>
+          <span>작성자 본인만 수정 / 삭제</span>
+          <span>국내 / 해외 사건 분류 제공</span>
+        </div>
+        <div class="hero-copy-actions">
+          <a class="primary-btn nav-link hero-write-btn" href="write.html">사건 등록</a>
+        </div>
+      </section>
+    </div>
+  </header>
+
+  <main class="layout board-only">
+    <section class="board">
+      <div class="board-header">
+        <div>
+          <p class="section-tag">Discussion Board</p>
+          <h2>사건 게시판</h2>
+          <p id="searchResultMeta" class="search-result-meta hidden"></p>
+        </div>
+        <div class="filters">
+          <select id="typeFilter">
+            <option value="전체">전체 분류</option>
+            <option value="국내 범죄">국내 범죄</option>
+            <option value="해외 범죄">해외 범죄</option>
+            <option value="국내 이상현상">국내 이상현상</option>
+            <option value="해외 이상현상">해외 이상현상</option>
+          </select>
+          <input id="searchInput" type="search" placeholder="제목, 단서, 작성자 검색">
+        </div>
+      </div>
+      <div id="postsContainer" class="posts"></div>
+    </section>
+  </main>
+
+  <div id="customPopup" class="custom-popup hidden" aria-hidden="true">
+    <div id="customPopupBackdrop" class="custom-popup-backdrop"></div>
+    <div class="custom-popup-panel card" role="dialog" aria-modal="true" aria-labelledby="customPopupTitle">
+      <p class="section-tag">Notice</p>
+      <h3 id="customPopupTitle" class="custom-popup-title">등록 완료</h3>
+      <p id="customPopupMessage" class="custom-popup-message">새 사건 글이 등록되었습니다.</p>
+      <div class="custom-popup-actions">
+        <button id="customPopupConfirm" class="primary-btn" type="button">확인</button>
+      </div>
+    </div>
+  </div>
+
+  <template id="postTemplate">
+    <article class="post-card card">
+      <div class="post-visual">
+        <div class="post-visual-overlay">
+          <span class="visual-kicker">Case File</span>
+          <span class="post-date visual-date"></span>
+          <span class="visual-theme"></span>
+        </div>
+      </div>
+      <div class="post-meta">
+        <div class="meta-badges">
+          <span class="badge type-badge"></span>
+          <span class="badge status-badge"></span>
+          <span class="badge reality-badge"></span>
+        </div>
+      </div>
+      <div class="post-title-row">
+        <h3 class="post-title"></h3>
+        <div class="summary-tooltip-wrap">
+          <button class="summary-tooltip-btn" type="button" aria-label="분석 요약 보기">i</button>
+          <div class="summary-tooltip hidden">
+            <strong>분석 요약</strong>
+            <p class="ops-summary"></p>
+          </div>
+        </div>
+      </div>
+      <p class="post-clue"></p>
+      <p class="post-content"></p>
+      <section class="analysis-panel">
+        <div class="analysis-box">
+          <h4>주요 쟁점</h4>
+          <ul class="analysis-list issue-list"></ul>
+        </div>
+        <div class="analysis-box">
+          <h4>추천 분석 포인트</h4>
+          <ul class="analysis-list prompt-list"></ul>
+        </div>
+      </section>
+      <section class="ops-panel">
+        <div class="timeline-box">
+          <h4>사건 타임라인</h4>
+          <ol class="timeline-list"></ol>
+        </div>
+        <div class="related-box">
+          <h4>관련 추천 사건</h4>
+          <div class="related-list"></div>
+        </div>
+      </section>
+      <div class="post-source hidden">
+        <span class="source-label">출처:</span>
+        <a class="ghost-btn nav-link source-link" target="_blank" rel="noopener noreferrer">나무위키 전문보기</a>
+      </div>
+      <div class="post-footer">
+        <div>
+          <span class="author-name"></span>
+          <span class="author-id"></span>
+        </div>
+        <div class="post-footer-right">
+          <button class="action-btn like-btn" type="button"></button>
+          <span class="comment-counter"></span>
+          <div class="post-actions"></div>
+        </div>
+      </div>
+      <section class="comment-panel">
+        <div class="comment-head">
+          <h4>댓글 및 분석 의견</h4>
+          <span class="comment-gate"></span>
+        </div>
+        <div class="comment-list"></div>
+        <form class="comment-form">
+          <textarea name="comment" rows="3" placeholder="증거 해석, 타임라인 보완, 다른 가설을 적어보세요." required></textarea>
+          <div class="comment-form-actions">
+            <button class="primary-btn comment-submit-btn" type="submit">댓글 등록</button>
+            <button class="ghost-btn comment-cancel-btn hidden" type="button">수정 취소</button>
+          </div>
+          <p class="message comment-message" aria-live="polite"></p>
+        </form>
+      </section>
+    </article>
+  </template>
+
+  <script src="script.js"></script>
+  <script>
+    window.va = window.va || function () {
+      (window.vaq = window.vaq || []).push(arguments);
+    };
+    window.va('beforeSend', function (event) {
+      if (localStorage.getItem('va-disable') === '1') {
+        return null;
+      }
+      return event;
+    });
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

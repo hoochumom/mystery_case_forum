@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>쉐도우 아카이브 | 사건 등록</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="backdrop"></div>
+  <main class="signup-shell">
+    <section class="card signup-card write-card">
+      <div class="section-head section-head-spaced">
+        <div>
+          <p class="section-tag">Write Post</p>
+          <h1 id="writePageTitle">사건 등록</h1>
+        </div>
+        <a class="ghost-btn nav-link" href="index.html">메인으로</a>
+      </div>
+
+      <form id="writePageForm" class="post-form">
+        <label class="reality-field reality-field-top">
+          구분
+          <input id="writeRealityValue" type="hidden" name="reality" value="실제" required>
+          <div class="reality-toggle" role="group" aria-label="구분 선택">
+            <button class="reality-btn is-selected" type="button" data-reality="실제">실제</button>
+            <button class="reality-btn" type="button" data-reality="픽션">픽션</button>
+          </div>
+        </label>
+
+        <div class="form-row">
+          <label>
+            사건 분류
+            <select name="type" required>
+              <option value="국내 범죄">국내 범죄</option>
+              <option value="해외 범죄">해외 범죄</option>
+              <option value="국내 이상현상">국내 이상현상</option>
+              <option value="해외 이상현상">해외 이상현상</option>
+            </select>
+          </label>
+          <label>
+            사건 상태
+            <select name="status" required>
+              <option value="미해결">미해결</option>
+              <option value="조사 중">조사 중</option>
+              <option value="부분 해결">부분 해결</option>
+            </select>
+          </label>
+        </div>
+
+        <label>
+          제목
+          <input name="title" type="text" placeholder="예: 00역 CCTV에서 사라진 7분의 공백" required>
+        </label>
+        <label>
+          본문
+          <textarea name="content" rows="9" placeholder="사건 개요, 시간대, 증거, 의문점, 추정 가설을 자유롭게 작성해 주세요." required></textarea>
+        </label>
+        <label>
+          #키워드
+          <input name="keywords" type="text" placeholder="예: #실종 #미제 #이상현상" required>
+        </label>
+        <div class="form-actions">
+          <button id="writePageSubmitBtn" class="primary-btn" type="submit">등록</button>
+        </div>
+        <p id="writePageMessage" class="message" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <div id="customPopup" class="custom-popup hidden" aria-hidden="true">
+    <div id="customPopupBackdrop" class="custom-popup-backdrop"></div>
+    <div class="custom-popup-panel card" role="dialog" aria-modal="true" aria-labelledby="customPopupTitle">
+      <p class="section-tag">Notice</p>
+      <h3 id="customPopupTitle" class="custom-popup-title">등록 완료</h3>
+      <p id="customPopupMessage" class="custom-popup-message">새 사건 글이 등록되었습니다.</p>
+      <div class="custom-popup-actions">
+        <button id="customPopupConfirm" class="primary-btn" type="button">확인</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="write.js"></script>
+  <script>
+    window.va = window.va || function () {
+      (window.vaq = window.vaq || []).push(arguments);
+    };
+    window.va('beforeSend', function (event) {
+      if (localStorage.getItem('va-disable') === '1') {
+        return null;
+      }
+      return event;
+    });
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>

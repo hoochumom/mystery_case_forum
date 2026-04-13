@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>쉐도우 아카이브 | 로그인</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="backdrop"></div>
+  <main class="signup-shell">
+    <section class="card signup-card login-card">
+      <p class="section-tag">Login</p>
+      <h1 class="login-title">
+        <span class="login-title-brand">쉐도우 아카이브</span>
+        <span class="login-title-main">로그인</span>
+      </h1>
+      <p class="dashboard-copy login-copy-singleline">
+        로그인하시면 좋아요 기능을 사용할 수 있고, 회원 계정으로 작성한 글과 댓글을 관리할 수 있습니다.
+      </p>
+
+      <form id="loginPageForm" class="post-form login-page-form">
+        <label class="login-field">
+          아이디
+          <input name="username" type="text" placeholder="아이디 입력" required>
+        </label>
+        <label class="login-field">
+          비밀번호
+          <input name="password" type="password" placeholder="비밀번호 입력" required>
+        </label>
+        <div class="form-actions login-actions">
+          <button class="primary-btn login-submit-btn" type="submit">로그인하기</button>
+        </div>
+        <div class="form-actions login-actions login-signup-row">
+          <a class="ghost-btn nav-link login-signup-btn" href="signup.html">회원가입</a>
+        </div>
+        <p id="loginPageMessage" class="message" aria-live="polite"></p>
+      </form>
+
+      <div class="login-links-row">
+        <a class="login-back-link nav-link" href="index.html">메인으로 돌아가기</a>
+      </div>
+    </section>
+  </main>
+
+  <script src="login.js"></script>
+  <script>
+    window.va = window.va || function () {
+      (window.vaq = window.vaq || []).push(arguments);
+    };
+    window.va('beforeSend', function (event) {
+      if (localStorage.getItem('va-disable') === '1') {
+        return null;
+      }
+      return event;
+    });
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
